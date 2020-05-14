@@ -1,5 +1,7 @@
 # Ico
 
+![icon](images/icon.png)
+
 Simple dice roller, WIP so I can teach myself JavaScript.
 
 ### Working Features
