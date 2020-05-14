@@ -1,6 +1,6 @@
 # Ico
 
-![icon](images/icon.png){:height="100px" width="100px"}
+<img src="/images/icon.png" alt="icon" width="100"/>
 
 Simple dice roller, WIP so I can teach myself JavaScript.
 
