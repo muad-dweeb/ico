@@ -1,6 +1,6 @@
 # Ico
 
-![icon](images/icon.png)
+![icon](images/icon.png =100x100)
 
 Simple dice roller, WIP so I can teach myself JavaScript.
 
