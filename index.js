@@ -35,14 +35,19 @@ client.on('message', msg => {
   if (!msg.content.startsWith(config.prefix) || msg.author.bot) return;
 
   const args = msg.content.slice(config.prefix.length).split(/ +/);
-  const command = args.pop().toLowerCase();
+  const commandName = args.pop().toLowerCase();
   
-  console.log(`Command received: ${command}`);
+  console.log(`Command received: ${commandName}`);
 
-	if (!client.commands.has(command)) return;
+  // null command short-circuit
+  if (!client.commands.has(commandName)) return;
+  
+  // the actual command object
+  const command = client.commands.get(commandName);
 
+  // dynamically executing commands
 	try {
-		client.commands.get(command).execute(msg, args);
+		command.execute(msg, args)
 	} catch (error) {
 		console.error(error);
 		msg.reply('there was an error trying to execute that command!');
