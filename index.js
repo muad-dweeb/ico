@@ -1,3 +1,6 @@
+// fs is Node's native file system module
+const fs = require('fs');
+
 // require the discord.js module
 const Discord = require('discord.js');
 
@@ -7,16 +10,16 @@ const config = require('./config.json');
 // create a new Discord client
 const client = new Discord.Client();
 
-// Does JavaScript not have a simple random function???
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+// an extension of JS's native Map class
+client.commands = new Discord.Collection();
 
-function highVariance() {
-  var die = [1,1,1,2,2,3,3,4,5,6,15,16,17,18,18,19,19,20,20,20]
-  return die[Math.floor(Math.random() * die.length)];
+// retrieve command files
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+// dynamically set the retrieved commands to the client
+for (const file of commandFiles) {
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
 }
 
 // when the client is ready, run this code
@@ -27,14 +30,23 @@ client.once('ready', () => {
 
 // listen for messages
 client.on('message', msg => {
-  if (msg.content === '!ico help') {
-    msg.reply('Insert help message here');
+
+  // ignore irrelevant commands, I think
+  if (!msg.content.startsWith(config.prefix) || msg.author.bot) return;
+
+  const args = msg.content.slice(config.prefix.length).split(/ +/);
+  const command = args.pop().toLowerCase();
+  
+  console.log(`Command received: ${command}`);
+
+  if (command === 'help') {
+    client.commands.get('help').execute(msg, args);
   }
-  else if (msg.content === '!ico d20') {
-    msg.reply(getRandomInt(1, 20));
+  else if (command === 'd20') {
+    client.commands.get('d20').execute(msg, args);
   }
-  else if (msg.content == '!ico hv20') {
-    msg.reply(highVariance());
+  else if (command == 'hv20') {
+    client.commands.get('hv20').execute(msg, args);
   }
 });
 
