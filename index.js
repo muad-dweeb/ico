@@ -39,15 +39,14 @@ client.on('message', msg => {
   
   console.log(`Command received: ${command}`);
 
-  if (command === 'help') {
-    client.commands.get('help').execute(msg, args);
-  }
-  else if (command === 'd20') {
-    client.commands.get('d20').execute(msg, args);
-  }
-  else if (command == 'hv20') {
-    client.commands.get('hv20').execute(msg, args);
-  }
+	if (!client.commands.has(command)) return;
+
+	try {
+		client.commands.get(command).execute(msg, args);
+	} catch (error) {
+		console.error(error);
+		msg.reply('there was an error trying to execute that command!');
+	}
 });
 
 // login to Discord with your app's token
