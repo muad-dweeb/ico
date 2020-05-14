@@ -12,3 +12,4 @@ Simple dice roller, WIP so I can teach myself JavaScript.
 - Roll any number of sides: `!ico dx`
 - Roll any number of high-variance sides: `!ico hvx`
 
+*... where `x` is an integer.*
