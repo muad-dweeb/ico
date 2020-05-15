@@ -1,6 +1,7 @@
 module.exports = {
   name: 'regular',
   description: 'Roll a regular die',
+  aliases: ['d'],
   execute(message, args) {
     var rollResults = []
     var total;

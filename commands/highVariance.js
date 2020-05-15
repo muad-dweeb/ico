@@ -1,6 +1,7 @@
 module.exports = {
-  name: 'high variance',
+  name: 'highVariance',
   description: 'Roll a high-variance D20',
+  aliases: ['hv', 'high variance'],
   execute(message, args) {
     var rollResults = []
     var total;

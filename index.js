@@ -48,7 +48,7 @@ client.on('message', msg => {
 
   var args = msg.content.slice(config.prefix.length).split(/ +/);
 
-  const commandInput = args.pop().toLowerCase();
+  const commandInput = args.shift().toLowerCase();
 
   // parse the expected elements from the input string
   if (commandInput.match(/(?<=[hvd]{1,2})\d+/g)) {
@@ -73,7 +73,6 @@ client.on('message', msg => {
       return;
     }
   }
-
 
   console.log(`Command received: ${commandInput}`);
   if (dieType && args.sides) {
