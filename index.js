@@ -27,6 +27,9 @@ for (let entry of client.commands.entries()) {
   console.log(entry);
 }
 
+// prevent help spam
+const cooldowns = new Discord.Collection();
+
 // when the client is ready, run this code
 // this event will only trigger one time after logging in
 client.once('ready', () => {
@@ -85,6 +88,30 @@ client.on('message', msg => {
   
   // the actual command object
   const command = client.commands.get(commandStr);
+
+  if (!cooldowns.has(command.name)) {
+    cooldowns.set(command.name, new Discord.Collection());
+  }
+
+  // current timestamp
+  const now = Date.now();
+
+  const timestamps = cooldowns.get(command.name);
+  
+  // get the configured cooldown amount, default to 0, and convert to milliseconds
+  const cooldownAmount = (command.cooldown || 0) * 1000;
+
+  if (timestamps.has(msg.author.id)) {
+    const expirationTime = timestamps.get(msg.author.id) + cooldownAmount;
+
+    if (now < expirationTime) {
+      const timeLeft = (expirationTime - now) / 1000;
+      return msg.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+    }
+  }
+
+  timestamps.set(msg.author.id, now);
+  setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
 
   // dynamically executing commands
 	try {

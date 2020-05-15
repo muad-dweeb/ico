@@ -1,6 +1,7 @@
 module.exports = {
   name: 'help',
   description: 'Help!',
+  cooldown: 20,
   execute(message, rolls, sides) {
     message.channel.send('**Hi, I\'m Ico!**\n \
     Try rolling a D20 using the following command: `!ico d20`\n \
