@@ -8,11 +8,11 @@
 ### Working Features
 
 - Roll a d20: `!ico d20`
-- Roll a high-variance d20: `!ico hv20`
+- Roll any number of sides: `!ico d100`
+- Roll any number of times: `!ico 2d42`
+- Roll a high-variance die: `!ico hv20`
+  - Supported HV side counts: 4, 6, 8, 10, 12, 20, 100
 
 ### Planned Features
 
-- Roll any number of sides: `!ico dx`
-- Roll any number of high-variance sides: `!ico hvx`
-
-*... where `x` is an integer.*
+- Add support for post roll addition: `!ico 2d20+3`
