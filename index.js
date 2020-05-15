@@ -40,24 +40,24 @@ client.once('ready', () => {
 // listen for messages
 client.on('message', msg => {
 
-  var numDie;
   var dieType;
-  var dieSides;
   var commandStr;
 
   // ignore irrelevant commands, I think
   if (!msg.content.startsWith(config.prefix) || msg.author.bot) return;
 
-  const args = msg.content.slice(config.prefix.length).split(/ +/);
+  var args = msg.content.slice(config.prefix.length).split(/ +/);
 
   const commandInput = args.pop().toLowerCase();
 
   // parse the expected elements from the input string
   if (commandInput.match(/(?<=[hvd]{1,2})\d+/g)) {
 
-    numDie = commandInput.match(/\d+(?=[hvd]{1,2})/g);
-    if (!numDie) {
-      numDie = 1;
+    args = Object();
+
+    args.rolls = commandInput.match(/\d+(?=[hvd]{1,2})/g);
+    if (!args.rolls) {
+      args.rolls = 1;
     }
     dieType = commandInput.match(/[hvd]{1,2}/g);
     if (dieType == 'hv') {
@@ -67,17 +67,17 @@ client.on('message', msg => {
       dieTypeStr = 'regular';
     }
     commandStr = dieTypeStr;
-    dieSides = commandInput.match(/(?<=[hvd]{1,2})\d+/g);
-    if (!dieSides) {
+    args.sides = commandInput.match(/(?<=[hvd]{1,2})\d+/g);
+    if (!args.sides) {
       msg.reply('you must indicate the number of sides for your die.');
       return;
     }
   }
 
-  
+
   console.log(`Command received: ${commandInput}`);
-  if (dieType && dieSides) {
-    console.log(`Rolling ${numDie} ${dieSides}-sided ${dieTypeStr} dice`);
+  if (dieType && args.sides) {
+    console.log(`Rolling ${args.rolls} ${args.sides}-sided ${dieTypeStr} dice`);
   }
 
   // command existence short-circuit
@@ -114,9 +114,10 @@ client.on('message', msg => {
 
   timestamps.set(msg.author.id, now);
   setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
+
   // dynamically executing commands
 	try {
-		command.execute(msg, numDie, dieSides);
+		command.execute(msg, args);
 	} catch (error) {
 		console.error(error);
 		msg.reply('there was an error trying to execute that command!');

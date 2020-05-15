@@ -1,14 +1,14 @@
 module.exports = {
   name: 'high variance',
   description: 'Roll a high-variance D20',
-  execute(message, rolls, sides) {
+  execute(message, args) {
     var rollResults = []
     var total;
 
     // integer dice
-    if (sides != 100) {
-      for ( r = rolls; r > 0; r-- ) {
-        result = highVarianceInt(sides);
+    if (args.sides != 100) {
+      for ( r = args.rolls; r > 0; r-- ) {
+        result = highVarianceInt(args.sides);
         if (typeof result === 'string') {
           message.reply(result);
           return;
@@ -21,7 +21,7 @@ module.exports = {
 
     // percentage dice
     else {
-      for ( r = rolls; r > 0; r-- ) {
+      for ( r = args.rolls; r > 0; r-- ) {
         rollResults.push(highVariancePercent());
       }
     }

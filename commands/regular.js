@@ -1,11 +1,11 @@
 module.exports = {
   name: 'regular',
   description: 'Roll a regular die',
-  execute(message, rolls, sides) {
+  execute(message, args) {
     var rollResults = []
     var total;
-    for (r = rolls; r > 0; r-- ) {
-      rollResults.push(getRandomInt(1, sides));
+    for (r = args.rolls; r > 0; r-- ) {
+      rollResults.push(getRandomInt(1, args.sides));
     }
     total = eval(rollResults.join('+'))
     if (rollResults.length > 1) {

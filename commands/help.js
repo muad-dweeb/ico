@@ -3,7 +3,7 @@ module.exports = {
   description: 'Help!',
   cooldown: 20,
   aliases: ['h', '?', 'wtf', '', 'what', 'who', 'help'],
-  execute(message, rolls, sides) {
+  execute(message, args) {
     message.channel.send('**Hi, I\'m Ico!**\n \
     Try rolling a D20 using the following command: `!ico d20`\n \
     You can roll more than one at a time too: `!ico 2d20`\n \
