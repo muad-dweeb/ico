@@ -22,9 +22,9 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-// TEMP TEST
-for (let entry of client.commands.entries()) {
-  console.log(entry);
+// Command info
+for (let [key, value] of client.commands.entries()) {
+  console.log(value);
 }
 
 // prevent help spam
@@ -53,30 +53,27 @@ client.on('message', msg => {
   const commandInput = args.pop().toLowerCase();
 
   // parse the expected elements from the input string
-  if (commandInput.includes('d') || commandInput.includes('hv')) {
+  if (commandInput.match(/(?<=[hvd]{1,2})\d+/g)) {
 
     numDie = commandInput.match(/\d+(?=[hvd]{1,2})/g);
     if (!numDie) {
-      numDie = 1
+      numDie = 1;
     }
     dieType = commandInput.match(/[hvd]{1,2}/g);
     if (dieType == 'hv') {
-      dieTypeStr = 'high variance'
+      dieTypeStr = 'high variance';
     }
     else {
-      dieTypeStr = 'regular'
+      dieTypeStr = 'regular';
     }
     commandStr = dieTypeStr;
     dieSides = commandInput.match(/(?<=[hvd]{1,2})\d+/g);
     if (!dieSides) {
-      msg.reply('you must indicate the number of sides for your die.')
+      msg.reply('you must indicate the number of sides for your die.');
       return;
     }
   }
 
-  else {
-    commandStr = 'help'
-  }
   
   console.log(`Command received: ${commandInput}`);
   if (dieType && dieSides) {
@@ -84,12 +81,17 @@ client.on('message', msg => {
   }
 
   // command existence short-circuit
-  if (!client.commands.has(commandStr)) return;
+  if (commandStr && !client.commands.has(commandStr)) return;
   
   // the actual command object
-  const command = client.commands.get(commandStr);
+  const command = client.commands.get(commandStr) || client.commands.get(commandInput) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandInput));
 
-  if (!cooldowns.has(command.name)) {
+  if ( !command ) {
+    msg.reply(`invalid command: \`${commandInput}\``);
+    return;
+  }
+
+  if ( !cooldowns.has(command.name) ) {
     cooldowns.set(command.name, new Discord.Collection());
   }
 
@@ -112,7 +114,6 @@ client.on('message', msg => {
 
   timestamps.set(msg.author.id, now);
   setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
-
   // dynamically executing commands
 	try {
 		command.execute(msg, numDie, dieSides);
