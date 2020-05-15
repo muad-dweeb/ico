@@ -1,8 +1,7 @@
 module.exports = {
-  name: 'hv20',
+  name: 'high variance',
   description: 'Roll a high-variance D20',
-  execute(message, args) {
-    console.log('TEMP TEST!')
+  execute(message, rolls, sides) {
     message.reply(highVariance());
   }
 };

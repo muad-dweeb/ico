@@ -22,37 +22,79 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
+// TEMP TEST
+for (let entry of client.commands.entries()) {
+  console.log(entry);
+}
+
 // when the client is ready, run this code
 // this event will only trigger one time after logging in
 client.once('ready', () => {
 	console.log('Ready!');
 });
 
+
 // listen for messages
 client.on('message', msg => {
+
+  var numDie;
+  var dieType;
+  var dieSides;
+  var commandStr;
 
   // ignore irrelevant commands, I think
   if (!msg.content.startsWith(config.prefix) || msg.author.bot) return;
 
   const args = msg.content.slice(config.prefix.length).split(/ +/);
-  const commandName = args.pop().toLowerCase();
-  
-  console.log(`Command received: ${commandName}`);
 
-  // null command short-circuit
-  if (!client.commands.has(commandName)) return;
+  const commandInput = args.pop().toLowerCase();
+
+  // parse the expected elements from the input string
+  if (commandInput.includes('d') || commandInput.includes('hv')) {
+
+    numDie = commandInput.match(/\d+(?=[hvd]{1,2})/g);
+    if (!numDie) {
+      numDie = 1
+    }
+    dieType = commandInput.match(/[hvd]{1,2}/g);
+    if (dieType == 'hv') {
+      dieTypeStr = 'high variance'
+    }
+    else {
+      dieTypeStr = 'regular'
+    }
+    commandStr = dieTypeStr;
+    dieSides = commandInput.match(/(?<=[hvd]{1,2})\d+/g);
+    if (!dieSides) {
+      msg.reply('you must indicate the number of sides for your die.')
+      return;
+    }
+  }
+
+  else {
+    commandStr = 'help'
+  }
+  
+  console.log(`Command received: ${commandInput}`);
+  if (dieType && dieSides) {
+    console.log(`Rolling ${numDie} ${dieSides}-sided ${dieTypeStr} dice`);
+  }
+
+  // command existence short-circuit
+  if (!client.commands.has(commandStr)) return;
   
   // the actual command object
-  const command = client.commands.get(commandName);
+  const command = client.commands.get(commandStr);
 
   // dynamically executing commands
 	try {
-		command.execute(msg, args)
+		command.execute(msg, numDie, dieSides);
 	} catch (error) {
 		console.error(error);
 		msg.reply('there was an error trying to execute that command!');
 	}
 });
+
 
 // login to Discord with your app's token
 client.login(config.token);
