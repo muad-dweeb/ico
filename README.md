@@ -13,3 +13,7 @@
 - Roll a high-variance die: `!ico hv20`
   - Supported HV side counts: 4, 6, 8, 10, 12, 20, 100
 - Supports positive and negative roll modifiers: `!ico 2d12+3`
+
+### Invite URL
+
+https://discordapp.com/oauth2/authorize?client_id=710326361264226374&scope=bot
