@@ -15,5 +15,5 @@
 - Supports positive and negative roll modifiers: `!ico 2d12+3`
 
 
-<a href="https://discordapp.com/oauth2/authorize?client_id=710326361264226374&scope=bot" target="_blank"><img src="/images/add_button.png" alt="add" width="200"/></a>
+<a target="_new" rel="noopener noreferrer" href="https://discordapp.com/oauth2/authorize?client_id=710326361264226374&scope=bot"><img src="/images/add_button.png" alt="add" width="200"/></a>
 
