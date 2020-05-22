@@ -12,6 +12,8 @@ module.exports = {
     I also support high-variance dice:  `!ico hv20`\n \
     ... *but only with the following side counts:* 4, 6, 8, 10, 12, 20, 100\n \
     \n \
+    Try adding an additive OR subtractive modifier: `!ico 2d12+3`\n \
+    \n \
     To see this message again, just ask for help: `!ico help`');
   }
 };
