@@ -1,4 +1,4 @@
-const {getRandomInt} = require('../util.js');
+const {getRandomInt,assembleRollResult} = require('../util.js');
 
 module.exports = {
   name: 'regular',
@@ -11,23 +11,26 @@ module.exports = {
     for (r = args.rolls; r > 0; r-- ) {
       rollResults.push(getRandomInt(1, args.sides));
     }
-    total = eval(rollResults.join('+'))
-    if (args.plusMinus) {
-      total += args.plusMinus;
-    }
+
+    message.reply(assembleRollResult(resultList=rollResults, modifer=args.plusMinus));
+
+    // total = eval(rollResults.join('+'))
+    // if (args.plusMinus) {
+    //   total += args.plusMinus;
+    // }
     
-    if (rollResults.length === 1 && !args.plusMinus) {
-      message.reply(`${total}`);
-    }
-    else {
-      formula = `${rollResults.join(' + ')}`;
-      if (args.plusMinus && args.plusMinus >= 0) {
-        formula += ` *+ ${args.plusMinus}*`;
-      }
-      else if (args.plusMinus && args.plusMinus < 0) {
-        formula += ` *- ${Math.abs(args.plusMinus)}*`;
-      }
-      message.reply(`${formula} = **${total}**`);
-    }
+    // if (rollResults.length === 1 && !args.plusMinus) {
+    //   message.reply(`${total}`);
+    // }
+    // else {
+    //   formula = `${rollResults.join(' + ')}`;
+    //   if (args.plusMinus && args.plusMinus >= 0) {
+    //     formula += ` *+ ${args.plusMinus}*`;
+    //   }
+    //   else if (args.plusMinus && args.plusMinus < 0) {
+    //     formula += ` *- ${Math.abs(args.plusMinus)}*`;
+    //   }
+    //   message.reply(`${formula} = **${total}**`);
+    // }
   }
 };
