@@ -1,3 +1,5 @@
+const {getRandomInt} = require('../util.js');
+
 module.exports = {
   name: 'regular',
   description: 'Roll a regular die',
@@ -29,10 +31,3 @@ module.exports = {
     }
   }
 };
-
-// Does JavaScript not have a simple random function???
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
