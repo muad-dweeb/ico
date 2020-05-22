@@ -59,6 +59,10 @@ client.on('message', msg => {
     if (!args.rolls) {
       args.rolls = 1;
     }
+    else if (args.rolls > 250) {
+      msg.reply('Please be gentle, that\'s too many dice!');
+      return;
+    }
     dieType = commandInput.match(/[hvd]{1,2}/g);
     if (dieType == 'hv') {
       dieTypeStr = 'highVariance';
@@ -70,6 +74,10 @@ client.on('message', msg => {
     args.sides = commandInput.match(/(?<=[hvd]{1,2})\d+/g);
     if (!args.sides) {
       msg.reply('you must indicate the number of sides for your die.');
+      return;
+    }
+    else if (args.sides > 999) {
+      msg.reply('Please be gentle, that\'s too many sides!');
       return;
     }
 
