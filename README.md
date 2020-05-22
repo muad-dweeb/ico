@@ -14,7 +14,6 @@
   - Supported HV side counts: 4, 6, 8, 10, 12, 20, 100
 - Supports positive and negative roll modifiers: `!ico 2d12+3`
 
-### Invite URL
 
-<a href="https://discordapp.com/oauth2/authorize?client_id=710326361264226374&scope=bot"><img src="/images/add_button.png" alt="add" width 100/></a>
+<a href="https://discordapp.com/oauth2/authorize?client_id=710326361264226374&scope=bot"><img src="/images/add_button.png" alt="add" width="200"/></a>
 
