@@ -104,7 +104,7 @@ client.on('message', msg => {
   const command = client.commands.get(commandStr) || client.commands.get(commandInput) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandInput));
 
   if ( !command ) {
-    msg.reply(`invalid command: \`${commandInput}\``);
+    msg.reply(`invalid command: \`${commandInput}\`. Try \`!ico help\``);
     return;
   }
 
