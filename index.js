@@ -61,7 +61,7 @@ client.on('message', msg => {
     }
     dieType = commandInput.match(/[hvd]{1,2}/g);
     if (dieType == 'hv') {
-      dieTypeStr = 'high variance';
+      dieTypeStr = 'highVariance';
     }
     else {
       dieTypeStr = 'regular';
@@ -72,7 +72,14 @@ client.on('message', msg => {
       msg.reply('you must indicate the number of sides for your die.');
       return;
     }
+
+    // check for +n notation
+    if (commandInput.match(/.*[\+\-]\d+/g)) {
+      args.plusMinus = Number(commandInput.match(/(?<=.*)[\+\-]\d+/g));
+    }
+
   }
+
 
   console.log(`Command received: ${commandInput}`);
   if (dieType && args.sides) {
@@ -80,8 +87,11 @@ client.on('message', msg => {
   }
 
   // command existence short-circuit
-  if (commandStr && !client.commands.has(commandStr)) return;
-  
+  if (commandStr && !client.commands.has(commandStr)) {
+    console.log(`commandStr is invalid: ${commandStr}`);
+    return;
+  }
+
   // the actual command object
   const command = client.commands.get(commandStr) || client.commands.get(commandInput) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandInput));
 

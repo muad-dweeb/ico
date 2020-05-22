@@ -11,6 +11,7 @@ module.exports = {
       for ( r = args.rolls; r > 0; r-- ) {
         result = highVarianceInt(args.sides);
         if (typeof result === 'string') {
+          // crappy excuse for exception bubbling
           message.reply(result);
           return;
         }
@@ -27,12 +28,23 @@ module.exports = {
       }
     }
 
+    // compute the result
     total = eval(rollResults.join('+'))
-    if (rollResults.length > 1) {
-      message.reply(`${rollResults.join(' + ')} = ${total}`);
+    if (args.plusMinus) {
+      total += args.plusMinus;
+    }
+    if (rollResults.length === 1 && !args.plusMinus) {
+      message.reply(`${total}`);
     }
     else {
-      message.reply(`${total}`);
+      formula = `${rollResults.join(' + ')}`;
+      if (args.plusMinus && args.plusMinus >= 0) {
+        formula += ` *+ ${args.plusMinus}*`;
+      }
+      else if (args.plusMinus && args.plusMinus < 0) {
+        formula += ` *- ${Math.abs(args.plusMinus)}*`;
+      }
+      message.reply(`${formula} = **${total}**`);
     }
   }
 };
