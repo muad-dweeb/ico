@@ -42,18 +42,16 @@ client.on('message', msg => {
 
   var dieType;
   var commandStr;
+  var args = Object();
 
   // ignore irrelevant commands, I think
   if (!msg.content.startsWith(config.prefix) || msg.author.bot) return;
 
-  var args = msg.content.slice(config.prefix.length).split(/ +/);
-
-  const commandInput = args.shift().toLowerCase();
+  const content = msg.content.slice(config.prefix.length).split(/ +/);
+  const commandInput = content.shift().toLowerCase();
 
   // parse the expected elements from the input string
   if (commandInput.match(/(?<=[hvd]{1,2})\d+/g)) {
-
-    args = Object();
 
     args.rolls = commandInput.match(/\d+(?=[hvd]{1,2})/g);
     if (!args.rolls) {
