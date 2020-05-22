@@ -13,24 +13,5 @@ module.exports = {
     }
 
     message.reply(assembleRollResult(resultList=rollResults, modifer=args.plusMinus));
-
-    // total = eval(rollResults.join('+'))
-    // if (args.plusMinus) {
-    //   total += args.plusMinus;
-    // }
-    
-    // if (rollResults.length === 1 && !args.plusMinus) {
-    //   message.reply(`${total}`);
-    // }
-    // else {
-    //   formula = `${rollResults.join(' + ')}`;
-    //   if (args.plusMinus && args.plusMinus >= 0) {
-    //     formula += ` *+ ${args.plusMinus}*`;
-    //   }
-    //   else if (args.plusMinus && args.plusMinus < 0) {
-    //     formula += ` *- ${Math.abs(args.plusMinus)}*`;
-    //   }
-    //   message.reply(`${formula} = **${total}**`);
-    // }
   }
 };
