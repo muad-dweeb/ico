@@ -16,4 +16,5 @@
 
 ### Invite URL
 
-https://discordapp.com/oauth2/authorize?client_id=710326361264226374&scope=bot
+<a href="https://discordapp.com/oauth2/authorize?client_id=710326361264226374&scope=bot"><img src="/images/add_button.png" alt="add" width 100/></a>
+
