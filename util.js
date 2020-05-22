@@ -18,10 +18,10 @@ module.exports = {
     else {
       formula = `${resultList.join(' + ')}`;
       if (modifer && modifer >= 0) {
-        formula += ` *+ ${modifer}*`;
+        formula = `\(${formula}\) *+ ${modifer}*`;
       }
       else if (modifer && modifer < 0) {
-        formula += ` *- ${Math.abs(modifer)}*`;
+        formula = `\(${formula}\) *- ${Math.abs(modifer)}*`;
       }
       response = `${formula} = **${total}**`;
     }
