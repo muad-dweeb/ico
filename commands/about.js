@@ -20,7 +20,7 @@ module.exports = {
       .setDescription('Node.js dice roller')
       .setThumbnail(gitRoot + '/blob/master/images/icon.png?raw=true')
       .addFields(
-        { name: 'Author', value: '[muad-dweeb](https://github.com/muad-dweeb/ico/ \'Hi :)\')'},
+        { name: 'Author', value: `[${author}](https://github.com/muad-dweeb/ 'Hi :)')`},
         { name: 'Version', value: version, inline: true },
         { name: 'License', value: license, inline: true },
         { name: 'Uptime', value: millisToMinutesAndSeconds(args.uptime), inline: false },
