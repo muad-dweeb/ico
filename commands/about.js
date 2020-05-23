@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 
+const {embedColor} = require('../config.json');
+
 const {version, homepage, license, author} = require('../package.json');
 
 const {millisToMinutesAndSeconds} = require('../util.js');
@@ -14,7 +16,7 @@ module.exports = {
     const gitRoot = homepage.split('#')[0];
 
     const aboutEmbed = new Discord.MessageEmbed()
-      .setColor('#ec53ff')
+      .setColor(embedColor)
       .setTitle('About Ico')
       .setURL(homepage)
       .setDescription('Node.js dice roller')

@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 
+const {embedColor} = require('../config.json');
+
 const {homepage} = require('../package.json');
 
 module.exports = {
@@ -12,7 +14,7 @@ module.exports = {
     const gitRoot = homepage.split('#')[0];
 
     const helpEmbed = new Discord.MessageEmbed()
-      .setColor('#ec53ff')
+      .setColor(embedColor)
       .setTitle('Hi, I\'m Ico!')
       .setURL(homepage)
       .setDescription('I roll dice. Here\'s how...')

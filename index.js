@@ -7,6 +7,23 @@ const Discord = require('discord.js');
 // this file contains the secret API token
 const config = require('./config.json');
 
+// default environment
+var environment = 'prod';
+
+// get environment override
+const cli_args = process.argv.slice(2);
+if ( cli_args.length > 1 ) {
+  throw new Error('Too many CLI arguments!');
+}
+else if ( cli_args.length === 1 ) {
+  environment = cli_args[0];
+  if (!(environment in config)) {
+    throw new Error(`${environment} not defined in config!`);
+  }
+}
+console.log(`Environment: ${environment}`);
+
+
 // create a new Discord client
 const client = new Discord.Client();
 
@@ -48,9 +65,9 @@ client.on('message', msg => {
   args.guild_count = client.guilds.cache.size;
 
   // ignore irrelevant commands, I think
-  if (!msg.content.startsWith(config.prefix) || msg.author.bot) return;
+  if (!msg.content.startsWith(config[environment].prefix) || msg.author.bot) return;
 
-  args.content = msg.content.slice(config.prefix.length).split(/ +/);
+  args.content = msg.content.slice(config[environment].prefix.length).split(/ +/);
   const commandInput = args.content.shift().toLowerCase();
 
   // parse the expected elements from the input string
@@ -144,5 +161,5 @@ client.on('message', msg => {
 
 
 // login to Discord with your app's token
-client.login(config.token);
+client.login(config[environment].token);
 
