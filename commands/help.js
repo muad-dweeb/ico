@@ -1,19 +1,30 @@
+const Discord = require('discord.js');
+
+const {homepage} = require('../package.json');
+
 module.exports = {
   name: 'help',
   description: 'Help!',
   cooldown: 20,
   aliases: ['h', '?', 'wtf', '', 'what', 'who', 'help'],
   execute: (message, args) => {
-    message.channel.send('**Hi, I\'m Ico!**\n \
-    Try rolling a D20 using the following command: `!ico d20`\n \
-    You can roll more than one at a time too: `!ico 2d20`\n \
-    You can roll any number of sides you want: `!ico 3d42`\n \
-    \n \
-    I also support high-variance dice:  `!ico hv20`\n \
-    ... *but only with the following side counts:* 4, 6, 8, 10, 12, 20, 100\n \
-    \n \
-    Try adding an additive OR subtractive modifier: `!ico 2d12+3`\n \
-    \n \
-    To see this message again, just ask for help: `!ico help`');
+
+    const helpEmbed = new Discord.MessageEmbed()
+      .setColor('#ec53ff')
+      .setTitle('Hi, I\'m Ico!')
+      .setURL(homepage)
+      .setDescription('I roll dice. Here\'s how...')
+      // .setThumbnail(gitRoot + '/blob/master/images/icon.png?raw=true')
+      .addFields(
+        { name: 'Roll a single die', value: '`!ico d20`', inline: false },
+        { name: 'Roll multiple dice', value: '`!ico 3d6`', inline: false },
+        { name: 'Roll high variance', value: '`!ico hv20`', inline: false },
+        { name: 'Include a modifier', value: '`!ico 2d69+420`', inline: false },
+        { name: 'See this message', value: '`!ico help`', inline: false },
+        { name: 'See additional info', value: '`!ico about`', inline: false },
+      )
+
+    message.channel.send(helpEmbed);
+
   }
 };
