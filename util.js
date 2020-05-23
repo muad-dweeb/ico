@@ -6,24 +6,26 @@ module.exports = {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   },
 
-  assembleRollResult: (resultList, modifer) => {
-    var response;
-    total = eval(resultList.join('+'))
+  rollOutput: (resultList, modifer) => {
+    var response = Object();
+
+    response.total = eval(resultList.join('+'))
     if (modifer) {
-      total += modifer;
+      response.total += modifer;
     }
+
     if (resultList.length === 1 && !modifer) {
-      response = `${total}`;
+      response.formula = '';
     }
     else {
       formula = `${resultList.join(' + ')}`;
       if (modifer && modifer >= 0) {
-        formula = `\(${formula}\) *+ ${modifer}*`;
+        formula = `\(${formula}\) + ${modifer}`;
       }
       else if (modifer && modifer < 0) {
-        formula = `\(${formula}\) *- ${Math.abs(modifer)}*`;
+        formula = `\(${formula}\) - ${Math.abs(modifer)}`;
       }
-      response = `${formula} = **${total}**`;
+      response.formula = formula;
     }
     return response;
   },

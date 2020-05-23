@@ -1,4 +1,6 @@
-const {assembleRollResult} = require('../util.js');
+const Discord = require('discord.js');
+
+const {rollOutput} = require('../util.js');
 
 module.exports = {
   name: 'highVariance',
@@ -29,7 +31,14 @@ module.exports = {
       }
     }
 
-    message.reply(assembleRollResult(resultList=rollResults, modifer=args.plusMinus));
+    result = rollOutput(resultList=rollResults, modifier=args.plusMinus)
+
+    const resultEmbed = new Discord.MessageEmbed()
+      .setColor('#ec53ff')
+      .setTitle(result.total)
+      .setFooter(result.formula || '')
+
+    message.reply(resultEmbed);
   }
 };
 
