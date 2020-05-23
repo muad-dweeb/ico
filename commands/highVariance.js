@@ -11,14 +11,13 @@ module.exports = {
     // integer dice
     if (args.sides != 100) {
       for ( r = args.rolls; r > 0; r-- ) {
-        result = highVarianceInt(args.sides);
-        if (typeof result === 'string') {
-          // crappy excuse for exception bubbling
-          message.reply(result);
-          return;
-        }
-        else {
+        try {
+          result = highVarianceInt(args.sides);
           rollResults.push(result);
+        }
+        catch(err) {
+          message.reply(err);
+          return;
         }
       }
     }
@@ -50,7 +49,7 @@ function highVarianceInt(sides) {
     return result;
   }
   else {
-    return `Unsupported high-variance die. Available dice are ${Object.keys(dice).join(', ')}, 100.`
+    throw new Error(`Unsupported high-variance die. Available dice are ${Object.keys(dice).join(', ')}, 100.`);
   }
 }
 
