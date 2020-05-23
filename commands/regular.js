@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 
+const {embedColor} = require('../config.json');
+
 const {getRandomInt,rollOutput} = require('../util.js');
 
 module.exports = {
@@ -15,7 +17,7 @@ module.exports = {
     result = rollOutput(resultList=rollResults, modifier=args.plusMinus)
 
     const resultEmbed = new Discord.MessageEmbed()
-      .setColor('#ec53ff')
+      .setColor(embedColor)
       .setTitle(result.total)
       .setFooter(result.formula || '')
 
