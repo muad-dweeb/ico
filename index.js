@@ -44,11 +44,14 @@ client.on('message', msg => {
   var commandStr;
   var args = Object();
 
+  args.uptime = client.uptime;
+  args.guild_count = client.guilds.cache.size;
+
   // ignore irrelevant commands, I think
   if (!msg.content.startsWith(config.prefix) || msg.author.bot) return;
 
-  const content = msg.content.slice(config.prefix.length).split(/ +/);
-  const commandInput = content.shift().toLowerCase();
+  args.content = msg.content.slice(config.prefix.length).split(/ +/);
+  const commandInput = args.content.shift().toLowerCase();
 
   // parse the expected elements from the input string
   if (commandInput.match(/(?<=[hvd]{1,2})\d+/g)) {
