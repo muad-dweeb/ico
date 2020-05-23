@@ -9,12 +9,14 @@ module.exports = {
   aliases: ['h', '?', 'wtf', '', 'what', 'who', 'help'],
   execute: (message, args) => {
 
+    const gitRoot = homepage.split('#')[0];
+
     const helpEmbed = new Discord.MessageEmbed()
       .setColor('#ec53ff')
       .setTitle('Hi, I\'m Ico!')
       .setURL(homepage)
       .setDescription('I roll dice. Here\'s how...')
-      // .setThumbnail(gitRoot + '/blob/master/images/icon.png?raw=true')
+      .setThumbnail(gitRoot + '/blob/master/images/icon.png?raw=true')
       .addFields(
         { name: 'Roll a single die', value: '`!ico d20`', inline: false },
         { name: 'Roll multiple dice', value: '`!ico 3d6`', inline: false },
