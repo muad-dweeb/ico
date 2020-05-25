@@ -18,8 +18,17 @@ module.exports = {
 
     const resultEmbed = new Discord.MessageEmbed()
       .setColor(embedColor)
-      .setTitle(result.total)
-      .setFooter(result.formula || '')
+
+    if ( !result.total ) {
+      resultEmbed
+        .setTitle('Sorry!')
+        .setDescription('Invalid command syntax')
+    }
+    else {
+      resultEmbed
+        .setTitle(result.total)
+        .setFooter(result.formula || '')
+    }
 
     message.reply(resultEmbed);
   }
