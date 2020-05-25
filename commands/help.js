@@ -25,8 +25,9 @@ module.exports = {
         { name: 'Roll high variance', value: '`!ico hv20`', inline: false },
         { name: 'Include a modifier', value: '`!ico 2d69+420`', inline: false },
         { name: 'See this message', value: '`!ico help`', inline: false },
-        { name: 'See additional info', value: '`!ico about`', inline: false },
+        { name: 'See additional info', value: '`!ico about`', inline: false }
       )
+      .addField( 'High Variance Note:','Rolling hv100 produces the sum of two HV percentage dice', false)
 
     message.channel.send(helpEmbed);
 
