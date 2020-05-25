@@ -68,10 +68,13 @@ client.on('message', msg => {
   if (!msg.content.startsWith(config[environment].prefix) || msg.author.bot) return;
 
   args.content = msg.content.slice(config[environment].prefix.length).split(/ +/);
-  const commandInput = args.content.shift().toLowerCase();
+  var commandInput = args.content.shift().toLowerCase();
 
   // parse the expected elements from the input string
   if (commandInput.match(/(?<=[hvd]{1,2})\d+/g)) {
+
+    // add additional args if present
+    args.content.forEach(item => commandInput += item);
 
     args.rolls = commandInput.match(/\d+(?=[hvd]{1,2})/g);
     if (!args.rolls) {
@@ -100,8 +103,8 @@ client.on('message', msg => {
     }
 
     // check for +n notation
-    if (commandInput.match(/.*[\+\-]\d+/g)) {
-      args.plusMinus = Number(commandInput.match(/(?<=.*)[\+\-]\d+/g));
+    if (commandInput.match(/.*[\+\-]\s*\d+/g)) {
+      args.plusMinus = Number(commandInput.match(/(?<=.+)\s*[\+\-]\s*\d+/g));
     }
 
   }
