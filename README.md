@@ -13,6 +13,8 @@
 - Roll a high-variance die: `!ico hv20`
   - Supported HV side counts: 4, 6, 8, 10, 12, 20, 100
 - Supports positive and negative roll modifiers: `!ico 2d12+3`
+- List available commands: `!ico help`
+- More about Ico: `!ico about`
 
 ### ToDo
 
