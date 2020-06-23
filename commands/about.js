@@ -4,7 +4,7 @@ const {embedColor} = require('../config.json');
 
 const {version, homepage, license, author} = require('../package.json');
 
-const {millisToMinutesAndSeconds} = require('../util.js');
+const {millisToReadable} = require('../util.js');
 
 module.exports = {
   name: 'about',
@@ -25,7 +25,7 @@ module.exports = {
         { name: 'Author', value: `[${author}](https://github.com/muad-dweeb/ 'Hi :)')`},
         { name: 'Version', value: version, inline: true },
         { name: 'License', value: license, inline: true },
-        { name: 'Uptime', value: millisToMinutesAndSeconds(args.uptime), inline: false },
+        { name: 'Uptime (`h:m:s`)', value: millisToReadable(args.uptime), inline: false },
         { name: 'Active Guilds', value: args.guild_count, inline: false },
       )
 

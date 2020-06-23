@@ -1,6 +1,6 @@
 {
   "name": "ico",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "ico discord bot",
   "main": "index.js",
   "dependencies": {
