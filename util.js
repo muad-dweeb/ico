@@ -30,10 +30,12 @@ module.exports = {
     return response;
   },
 
+  // https://stackoverflow.com/a/57542002/3900915
   millisToReadable: (millis) => {
-    var hours = (millis / (1000 * 60 * 60)).toFixed(0);
-    var minutes = Math.floor(millis / 60000);
-    var seconds = ((millis % 60000) / 1000).toFixed(0);
-    return hours + ":" + minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+    let h, m, s;
+    h = Math.floor(millis / 1000 / 60 / 60);
+    m = Math.floor((millis / 1000 / 60 / 60 - h) * 60);
+    s = Math.floor(((millis / 1000 / 60 / 60 - h) * 60 - m) * 60);
+    return `${h}:${m}:${s}`
   }
 };
