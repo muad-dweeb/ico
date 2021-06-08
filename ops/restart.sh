@@ -1,4 +1,5 @@
 #!/bin/bash
 
 killall node
-${HOME}/ico/ops/run.sh
+cd ${HOME}/ico
+./ops/run.sh
