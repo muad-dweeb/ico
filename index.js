@@ -21,8 +21,13 @@ else if ( cli_args.length === 1 ) {
     throw new Error(`${environment} not defined in config!`);
   }
 }
-console.log(`Environment: ${environment}`);
 
+// display available command triggers
+console.log(`Environment: ${environment}`);
+console.log(`Available triggers:`);
+for (let x of config[environment].prefix.values()) {
+  console.log(`    ${x}`);
+}
 
 // create a new Discord client
 const client = new Discord.Client();
@@ -60,14 +65,24 @@ client.on('message', msg => {
   var dieType;
   var commandStr;
   var args = Object();
+  var called = false;
+  var prefix;
 
   args.uptime = client.uptime;
   args.guild_count = client.guilds.cache.size;
 
   // ignore irrelevant commands, I think
-  if (!msg.content.startsWith(config[environment].prefix) || msg.author.bot) return;
+  for (let trigger of config[environment].prefix.values()) {
+    if (msg.content.startsWith(trigger)) {
+      called = true;
+      prefix = trigger;
+      continue;
+    }
+  }
+  // if (!msg.content.startsWith(config[environment].prefix) || msg.author.bot) return;
+  if (!called) return;
 
-  args.content = msg.content.slice(config[environment].prefix.length).split(/ +/);
+  args.content = msg.content.slice(prefix.length).split(/ +/);
   var commandInput = args.content.shift().toLowerCase();
 
   // parse the expected elements from the input string
