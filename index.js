@@ -79,7 +79,6 @@ client.on('message', msg => {
       continue;
     }
   }
-  // if (!msg.content.startsWith(config[environment].prefix) || msg.author.bot) return;
   if (!called) return;
 
   args.content = msg.content.slice(prefix.length).split(/ +/);
@@ -123,7 +122,6 @@ client.on('message', msg => {
     }
 
   }
-
 
   console.log(`Command received: ${commandInput}`);
   if (dieType && args.sides) {
