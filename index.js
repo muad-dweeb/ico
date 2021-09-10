@@ -72,10 +72,10 @@ client.on('message', msg => {
   args.guild_count = client.guilds.cache.size;
 
   // ignore irrelevant commands, I think
-  for (let trigger of config[environment].prefix.values()) {
-    if (msg.content.startsWith(trigger)) {
+  for (let p of config[environment].prefix.values()) {
+    if (msg.content.startsWith(p)) {
       called = true;
-      prefix = trigger;
+      prefix = p
       continue;
     }
   }
