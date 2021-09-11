@@ -12,14 +12,24 @@ const Discord = require('discord.js');
 
 const header = `New in version ${version}!`
 
+/**
+ * LEGACY: Read from a line-delimited text file
+ * @param {String} filename Name of the file to read from
+ * @returns {Buffer}        File contents
+ */
 function simpleReadFileSync(filename)
 {
     const filepath = path.resolve(filename);
     let options = {encoding:'utf-8', flag:'r'};
-    let buffer = fs.readFileSync(filename, options);
+    let buffer = fs.readFileSync(filepath, options);
     return buffer;
 }
 
+/**
+ * Assemble a text blob from an array of strings
+ * @param {Array[String]} lines Loaded from changelog.json
+ * @returns {String}            Multiline string with hyphen-bullets
+ */
 function assembleContent(lines) {
   console.log(lines);
   let assembled = '';

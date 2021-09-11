@@ -4,7 +4,10 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const path = require('path')
 
-
+/**
+ * Initialize and set up a fresh Discord client
+ * @returns {Discord.Client}
+ */
 exports.discord = function () {
   // create a new Discord client
   client = new Discord.Client();
@@ -23,9 +26,6 @@ exports.discord = function () {
   for (let [key, value] of client.commands.entries()) {
     console.log(value);
   }
-
-  // prevent help spam
-  const cooldowns = new Discord.Collection();
 
   // when the client is ready, run this code
   // this event will only trigger one time after logging in

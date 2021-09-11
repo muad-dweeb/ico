@@ -4,6 +4,7 @@
         "Roll20-inspired command triggers for dice rolls!",
         "MongoDB Atlas integration!",
         "Internal packaging!",
+        "Docstrings!",
         "This changelog! Neat right? No? Shit."
     ]
 }

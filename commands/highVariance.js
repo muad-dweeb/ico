@@ -44,6 +44,11 @@ module.exports = {
   }
 };
 
+/**
+ * A stupid way to roll high variance
+ * @param {Number} sides The number of sides the die has
+ * @returns {Number}     Roll result
+ */
 function highVarianceInt(sides) {
   const dice = {
     '4':  [1,1,4,4],
@@ -64,6 +69,11 @@ function highVarianceInt(sides) {
   }
 }
 
+/**
+ * A really stupid way to roll high variance percentile dice
+ * TODO: Do better.
+ * @returns {Number} Roll result
+ */
 function highVariancePercent() {
   const tens = [00, 00, 10, 10, 20, 70, 80, 80, 90, 90];
   const ones = [1, 1, 2, 2, 3, 8, 9, 9, 10, 10];
