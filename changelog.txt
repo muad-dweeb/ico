@@ -1,3 +1,0 @@
-
-- Roll20-inspired command triggers for dice rolls
-- This changelog! Neat right? No? Shit.

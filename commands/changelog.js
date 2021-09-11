@@ -1,9 +1,9 @@
-// Read from changelog.txt and format into a pretty message
-
+// Read from changelog.json and format into a pretty message
 
 const {version} = require('../package.json');
 const {embedColor} = require('../config.json');
 const {homepage} = require('../package.json');
+const lines = require('../changelog.json')[version];
 
 const path = require('path')
 const fs = require('fs')
@@ -14,14 +14,24 @@ const header = `New in version ${version}!`
 
 function simpleReadFileSync(filename)
 {
-    const filepath = path.resolve(filename)
-    var options = {encoding:'utf-8', flag:'r'};
-    var buffer = fs.readFileSync(filename, options);
-    return buffer
+    const filepath = path.resolve(filename);
+    let options = {encoding:'utf-8', flag:'r'};
+    let buffer = fs.readFileSync(filename, options);
+    return buffer;
 }
 
-const contents = simpleReadFileSync('changelog.txt')
+function assembleContent(lines) {
+  console.log(lines);
+  let assembled = '';
+  for (line of lines) {
+    assembled += '- ' + line + '\n';
+  }
+  return assembled;
+}
+
+const contents = assembleContent(lines);
 const gitRoot = homepage.split('#')[0];
+
 
 module.exports = {
   name: 'changelog',
