@@ -1,5 +1,6 @@
 // Read from changelog.txt and format into a pretty message
 
+
 const {version} = require('../package.json');
 const {embedColor} = require('../config.json');
 const {homepage} = require('../package.json');
@@ -33,6 +34,7 @@ module.exports = {
       .setTitle(header)
       .setThumbnail(gitRoot + '/blob/master/images/icon.png?raw=true')
       .setDescription(contents)
+      .addField( 'Try:', '`!ico help`\n`!ico about`', false )
     console.log(contents)
     message.channel.send(changelogEmbed);
   }
