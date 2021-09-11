@@ -3,6 +3,7 @@ const fs = require('fs');
 
 // require the discord.js module
 const Discord = require('discord.js');
+const client = require('./modules/clients.js').discord();
 
 // this file contains the secret API token
 const config = require('./config.json');
@@ -29,35 +30,8 @@ for (let x of config[environment].prefix.values()) {
   console.log(`    ${x}`);
 }
 
-// create a new Discord client
-const client = new Discord.Client();
-
-// an extension of JS's native Map class
-client.commands = new Discord.Collection();
-
-// retrieve command files
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
-// dynamically set the retrieved commands to the client
-for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
-}
-
-// Command info
-for (let [key, value] of client.commands.entries()) {
-  console.log(value);
-}
-
 // prevent help spam
 const cooldowns = new Discord.Collection();
-
-// when the client is ready, run this code
-// this event will only trigger one time after logging in
-client.once('ready', () => {
-	console.log('Ready!');
-});
-
 
 // listen for messages
 client.on('message', msg => {
