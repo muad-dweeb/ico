@@ -39,23 +39,27 @@ function assembleContent(lines) {
   return assembled;
 }
 
-const contents = assembleContent(lines);
-const gitRoot = homepage.split('#')[0];
-
+function sendChangelog(msg, args) {
+// exports.sendChangelog = (msg, args) => {
+  const contents = assembleContent(lines);
+  const gitRoot = homepage.split('#')[0];
+  const changelogEmbed = new Discord.MessageEmbed()
+    .setColor(embedColor)
+    .setTitle(header)
+    .setThumbnail(gitRoot + '/blob/master/images/icon.png?raw=true')
+    .setDescription(contents)
+    .addField( 'Try:', '`!ico help`\n`!ico about`', false )
+  // console.log(contents)
+  msg.channel.send(changelogEmbed);
+}
 
 module.exports = {
+  sendChangelog: sendChangelog,
   name: 'changelog',
   description: 'Changelog',
   cooldown: 20,
   aliases: ['change', 'changes', 'c'],
   execute: (message, args) => {
-    const changelogEmbed = new Discord.MessageEmbed()
-      .setColor(embedColor)
-      .setTitle(header)
-      .setThumbnail(gitRoot + '/blob/master/images/icon.png?raw=true')
-      .setDescription(contents)
-      .addField( 'Try:', '`!ico help`\n`!ico about`', false )
-    console.log(contents)
-    message.channel.send(changelogEmbed);
+    sendChangelog(message, args);
   }
 }
