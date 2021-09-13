@@ -94,7 +94,8 @@ client.on('message', msg => {
     if (commandInput.match(/.*[\+\-]\s*\d+/g)) {
       args.plusMinus = Number(commandInput.match(/(?<=.+)\s*[\+\-]\s*\d+/g));
     }
-
+  } else if (commandInput == 'blast') {
+    args.discordClient = client;
   }
 
   console.log(`Command received: ${commandInput}`);
@@ -111,11 +112,12 @@ client.on('message', msg => {
   // the actual command object
   const command = client.commands.get(commandStr) || client.commands.get(commandInput) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandInput));
 
-  if ( !command ) {
+  if ( command == undefined ) {
     msg.reply(`invalid command: \`${commandInput}\`. Try \`!ico help\``);
     return;
   }
 
+  // TODO: convert to MongoDB
   if ( !cooldowns.has(command.name) ) {
     cooldowns.set(command.name, new Discord.Collection());
   }
@@ -148,7 +150,6 @@ client.on('message', msg => {
 		msg.reply('there was an error trying to execute that command!');
 	}
 });
-
 
 // login to Discord with your app's token
 client.login(config[environment].token);
