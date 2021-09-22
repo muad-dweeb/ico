@@ -12,9 +12,7 @@ module.exports = {
   cooldown: 20,
   aliases: ['a'],
   execute: (message, args) => {
-
     const gitRoot = homepage.split('#')[0];
-
     const aboutEmbed = new Discord.MessageEmbed()
       .setColor(embedColor)
       .setTitle('About Ico')
@@ -28,7 +26,6 @@ module.exports = {
         { name: 'Uptime (`h:m:s`)', value: millisToReadable(args.uptime), inline: false },
         { name: 'Active Guilds', value: args.guild_count, inline: false },
       )
-
     message.channel.send(aboutEmbed);
   }
 };

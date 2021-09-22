@@ -3,6 +3,7 @@ const fs = require('fs');
 
 // require the discord.js module
 const Discord = require('discord.js');
+const client = require('./modules/clients.js').discord();
 
 // this file contains the secret API token
 const config = require('./config.json');
@@ -21,38 +22,16 @@ else if ( cli_args.length === 1 ) {
     throw new Error(`${environment} not defined in config!`);
   }
 }
+
+// display available command triggers
 console.log(`Environment: ${environment}`);
-
-
-// create a new Discord client
-const client = new Discord.Client();
-
-// an extension of JS's native Map class
-client.commands = new Discord.Collection();
-
-// retrieve command files
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
-// dynamically set the retrieved commands to the client
-for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
-}
-
-// Command info
-for (let [key, value] of client.commands.entries()) {
-  console.log(value);
+console.log(`Available triggers:`);
+for (let x of config[environment].prefix.values()) {
+  console.log(`    ${x}`);
 }
 
 // prevent help spam
 const cooldowns = new Discord.Collection();
-
-// when the client is ready, run this code
-// this event will only trigger one time after logging in
-client.once('ready', () => {
-	console.log('Ready!');
-});
-
 
 // listen for messages
 client.on('message', msg => {
@@ -60,14 +39,23 @@ client.on('message', msg => {
   var dieType;
   var commandStr;
   var args = Object();
+  var called = false;
+  var prefix;
 
   args.uptime = client.uptime;
   args.guild_count = client.guilds.cache.size;
 
   // ignore irrelevant commands, I think
-  if (!msg.content.startsWith(config[environment].prefix) || msg.author.bot) return;
+  for (let p of config[environment].prefix.values()) {
+    if (msg.content.startsWith(p)) {
+      called = true;
+      prefix = p
+      continue;
+    }
+  }
+  if (!called) return;
 
-  args.content = msg.content.slice(config[environment].prefix.length).split(/ +/);
+  args.content = msg.content.slice(prefix.length).split(/ +/);
   var commandInput = args.content.shift().toLowerCase();
 
   // parse the expected elements from the input string
@@ -106,9 +94,9 @@ client.on('message', msg => {
     if (commandInput.match(/.*[\+\-]\s*\d+/g)) {
       args.plusMinus = Number(commandInput.match(/(?<=.+)\s*[\+\-]\s*\d+/g));
     }
-
+  } else if (commandInput == 'blast') {
+    args.discordClient = client;
   }
-
 
   console.log(`Command received: ${commandInput}`);
   if (dieType && args.sides) {
@@ -124,11 +112,12 @@ client.on('message', msg => {
   // the actual command object
   const command = client.commands.get(commandStr) || client.commands.get(commandInput) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandInput));
 
-  if ( !command ) {
+  if ( command == undefined ) {
     msg.reply(`invalid command: \`${commandInput}\`. Try \`!ico help\``);
     return;
   }
 
+  // TODO: convert to MongoDB
   if ( !cooldowns.has(command.name) ) {
     cooldowns.set(command.name, new Discord.Collection());
   }
@@ -161,7 +150,6 @@ client.on('message', msg => {
 		msg.reply('there was an error trying to execute that command!');
 	}
 });
-
 
 // login to Discord with your app's token
 client.login(config[environment].token);

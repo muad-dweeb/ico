@@ -5,8 +5,8 @@ module.exports = {
   description: 'Reloads a command',
   execute(message, args) {
 
-    console.log(`Reload command issued by member ID: ${message.member.id} (${message.member.displayName})`);
-    if ( message.member.id != author ) {
+    console.log(`Reload command issued by member ID: ${message.author.id} (${message.author.username})`);
+    if ( message.author.id != author ) {
       message.channel.send(`You do not have permission to use the reload command, ${message.author}.`);
       return;
     }

@@ -19,6 +19,7 @@ module.exports = {
       .setURL(homepage)
       .setDescription('I roll dice. Here\'s how...')
       .setThumbnail(gitRoot + '/blob/master/images/icon.png?raw=true')
+      .addField( 'Command triggers', '`!ico` | `/roll` | `/r`', false )
       .addFields(
         { name: 'Roll a single die', value: '`!ico d20`', inline: false },
         { name: 'Roll multiple dice', value: '`!ico 3d6`', inline: false },
