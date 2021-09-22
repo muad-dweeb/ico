@@ -15,6 +15,7 @@
 - Supports positive and negative roll modifiers: `!ico 2d12+3`
 - List available commands: `!ico help`
 - More about Ico: `!ico about`
+- Alternative command prefixes: `/roll`, `/r`
 
 ### ToDo
 
