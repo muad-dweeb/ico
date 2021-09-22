@@ -85,6 +85,7 @@ module.exports = {
       console.log('Blast permission granted.');
     }
     // finish(blastEm, args.discordClient);
-    blastEm(args.discordClient);
+    // blastEm(args.discordClient);
+    console.log('Blast disabled. Buggy AF.')
   }
 };
