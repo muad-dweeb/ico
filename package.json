@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "discord.js": "^12.2.0",
-    "mongodb": "^4.1.1"
+    "mongodb": "^4.17.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
